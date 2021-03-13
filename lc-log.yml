@@ -29,5 +29,5 @@
     ignore_errors: yes
 
   - name: Capture Lifecycle log export result
-    local_action: copy content="{{ result | to_nice_json }}" dest="{{ save_files_path }}{{ inventory_hostname }}-lc-log-{{ tstamp.stdout }}.json"
+    local_action: copy content="{{ result | to_nice_json }}" dest="{{ idrac_files_path }}{{ inventory_hostname }}-lc-log-{{ tstamp.stdout }}.json"
 

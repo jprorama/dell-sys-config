@@ -33,5 +33,5 @@
     ignore_errors: yes
 
   - name: Write firmware report
-    local_action: copy content="{{ result | to_nice_json }}" dest="{{ save_files_path }}{{ inventory_hostname }}-idrac-firmware-report-{{ tstamp.stdout }}.json"
+    local_action: copy content="{{ result | to_nice_json }}" dest="{{ idrac_files_path }}{{ inventory_hostname }}-idrac-firmware-report-{{ tstamp.stdout }}.json"
 

@@ -32,5 +32,5 @@
     ignore_errors: yes
 
   - name: Capture scp import command result
-    local_action: copy content="{{ result | to_nice_json }}" dest="{{ save_files_path }}{{ inventory_hostname }}-idrac-scp-import-{{ tstamp.stdout }}.json"
+    local_action: copy content="{{ result | to_nice_json }}" dest="{{ idrac_files_path }}{{ inventory_hostname }}-idrac-scp-import-{{ tstamp.stdout }}.json"
 
