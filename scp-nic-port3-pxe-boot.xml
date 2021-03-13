@@ -1,0 +1,14 @@
+<SystemConfiguration>
+<Component FQDD="NIC.Integrated.1-3-1">
+    <Attribute Name="LegacyBootProto">PXE</Attribute>
+</Component>
+<Component FQDD="BIOS.Setup.1-1">
+    <Attribute Name="BootMode">Uefi</Attribute>
+    <Attribute Name="SetBootOrderEn">NIC.PxeDevice.2-1,RAID.Integrated.1-1</Attribute>
+    <Attribute Name="PxeDev1EnDis">Disabled</Attribute>
+    <Attribute Name="PxeDev2EnDis">Enabled</Attribute>
+    <Attribute Name="PxeDev2Interface">NIC.Integrated.1-3-1</Attribute>
+    <Attribute Name="UefiBootSeq">NIC.PxeDevice.2-1, RAID.Integrated.1-1</Attribute>
+</Component>
+
+</SystemConfiguration>

@@ -1,0 +1,36 @@
+---
+# interact with idrac bmc inteface of dell hardware
+# must be run on machine that can reach iDRAC
+# has dependcies on omsdk pip module so specify the virtualenv on the local
+# machine which has that installed `pip install omsdk`
+# also requires the dellemc collections which can be installed with
+# ansible-galaxy collection install  dellemc.openmanage --collections collections/
+- hosts: '{{ host }}'
+  connection: local
+  gather_facts: False
+  vars:
+    ansible_python_interpreter: "{{ VENV_PYTHON }}"
+  collections:
+    - dellemc.openmanage
+  
+  tasks:
+  - name: Get timestamp from the system
+    shell: "date +%Y-%m-%d-%H-%M-%S"
+    register: tstamp
+
+  - name: Import SCP from {{ scp_file }}
+    dellemc.openmanage.idrac_server_config_profile:
+      idrac_ip:  "{{ idrac_ip }}"
+      idrac_user:  "{{ idrac_user }}"
+      idrac_password:  "{{ idrac_password }}"
+      command: "import"
+      share_name: "{{ idrac_files_path }}"
+      scp_file: "{{ scp_file }}"
+      scp_components: "{{ scp_component | default('ALL') }}"
+      job_wait: True
+    register: result
+    ignore_errors: yes
+
+  - name: Capture scp import command result
+    local_action: copy content="{{ result | to_nice_json }}" dest="{{ save_files_path }}{{ inventory_hostname }}-idrac-scp-import-{{ tstamp.stdout }}.json"
+

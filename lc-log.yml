@@ -1,0 +1,33 @@
+---
+# interact with idrac bmc inteface of dell hardware
+# must be run on machine that can reach iDRAC
+# has dependcies on omsdk pip module so specify the virtualenv on the local
+# machine which has that installed `pip install omsdk`
+# also requires the dellemc collections which can be installed with
+# ansible-galaxy collection install  dellemc.openmanage --collections collections/
+- hosts: '{{ host }}'
+  connection: local
+  gather_facts: False
+  vars:
+    ansible_python_interpreter: "{{ VENV_PYTHON }}"
+  collections:
+    - dellemc.openmanage
+  
+  tasks:
+  - name: Get timestamp from the system
+    shell: "date +%Y-%m-%d-%H-%M-%S"
+    register: tstamp
+
+  - name: Export Lifecycle Controller Logs
+    dellemc.openmanage.idrac_lifecycle_controller_logs:
+      idrac_ip:  "{{ idrac_ip }}"
+      idrac_user:  "{{ idrac_user }}"
+      idrac_password:  "{{ idrac_password }}"
+      share_name: "{{ idrac_files_path }}"
+      job_wait: True
+    register: result
+    ignore_errors: yes
+
+  - name: Capture Lifecycle log export result
+    local_action: copy content="{{ result | to_nice_json }}" dest="{{ save_files_path }}{{ inventory_hostname }}-lc-log-{{ tstamp.stdout }}.json"
+
