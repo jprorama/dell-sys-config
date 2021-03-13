@@ -6,8 +6,11 @@ A set of ansible playbooks to configure Dell boxes via the Redfish APIs.
 
 After cloning this repo, create a python env:
 ```
-python3 -m venv venv
+python3 -m venv venv --system-site-packages
 ```
+Note: the site packages arg fixes an error when [writing result files in 
+selinux environments](https://stackoverflow.com/a/64513211/8928529).
+
 
 Activate the venv:
 ```
