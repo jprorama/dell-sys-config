@@ -25,7 +25,7 @@
       idrac_user: "{{ idrac_user }}"
       idrac_password: "{{ idrac_password }}"
       share_name: "{{ idrac_firmware_share | default('http://downloads.dell.com') }}"
-      catalog_file_name: "{{ idrac_firmware_catalog | defaut('Catalog.xml') }}"
+      catalog_file_name: "{{ idrac_firmware_catalog | default('Catalog.xml') }}"
       reboot: False
       job_wait: True
       apply_update: False
