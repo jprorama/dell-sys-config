@@ -60,6 +60,8 @@ Create a variables file to support your hosts.  For example in `group_vars/all`
 ```
 VENV_PYTHON: "/path/to/venv/bin/python"
 idrac_files_path="/absolute/path/for/output-and-input-files"
+idrac_firmware_share: "http://the_store_server/iso/dell_firmware/store/"
+idrac_firmware_catalog: "dell-firmware_1.00_Catalog.xml"
 ```
 
 The rest of the variables are designed to specify on the command line, in particular for host selection of the playbook.
